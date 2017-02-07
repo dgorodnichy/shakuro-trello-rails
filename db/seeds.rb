@@ -5,3 +5,22 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+#
+
+Board.destroy_all
+List.destroy_all
+Item.destroy_all
+
+3.times { Board.create(title: FFaker::Lorem.phrase) }
+
+Board.all.each do |board|
+  rand(2..5).times do
+    board.lists << List.create(title: FFaker::Lorem.phrase)
+  end
+end
+
+List.all.each do |list|
+  rand(2..5).times do
+    list.items << Item.create(title: FFaker::Lorem.phrase, description: FFaker::Lorem.sentence)
+  end
+end
