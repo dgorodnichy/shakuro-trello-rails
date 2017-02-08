@@ -3,7 +3,6 @@ import { Link } from 'react-router';
 
 export default class BoardsTabs extends Component {
 
-
   render() {
     return (
       <div className='row'>

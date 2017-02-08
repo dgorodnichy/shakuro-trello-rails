@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { hashHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import * as BoardActions from '../actions/BoardActions.js';
 import * as ListActions from '../actions/ListActions.js';
@@ -18,16 +19,24 @@ class App extends Component {
     this.props.boardActions.getBoards();
   }
 
+  componentWillUpdate(nextProps, nextState) {
+    console.log(this.props);
+    if (this.props.boards.length == 0 && nextProps.boards.length > 0) {
+      this.props.listActions.getBoardLists(this.props.params.boardId || nextProps.boards[0].id)
+      hashHistory.replace(`/board/${this.props.params.boardId || nextProps.boards[0].id}`);
+    }
+  }
+
   render() {
 
     const board = this.props.boards.find(this.isCurrentBoard.bind(this)) || {}
-    const boards = this.props.boards;
+    const lists = this.props.lists
 
     return (
       <div>
         App
-        <BoardsTabs boards={boards} />
-        <Board board={board} getBoardLists={this.props.listActions.getBoardLists} />
+        <BoardsTabs boards={this.props.boards} />
+        <Board board={board} lists={lists} getBoardLists={this.props.listActions.getBoardLists} />
       </div>
     );
   }

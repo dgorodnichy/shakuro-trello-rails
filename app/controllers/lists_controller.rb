@@ -3,7 +3,8 @@ class ListsController < ApplicationController
 
   # GET /lists
   def index
-    @lists = List.all
+    board = Board.find(params[:board_id])
+    @lists = board.lists
 
     render json: @lists
   end

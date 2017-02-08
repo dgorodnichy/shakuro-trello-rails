@@ -5,8 +5,8 @@ export default class List extends Component {
   render() {
     return (
       <div className='row'>
-        <div className='board'>
-        { this.props.board.title }
+        <div className='list'>
+        { this.props.list.title }
         </div>
       </div>
     );

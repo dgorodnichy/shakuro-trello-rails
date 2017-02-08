@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import List from '../components/List.js'
 
 export default class Board extends Component {
 
@@ -13,6 +14,11 @@ export default class Board extends Component {
       <div className='row'>
         <div className='board'>
         { this.props.board.title }
+         {this.props.lists.map((list) =>
+            <li key={list.id}>
+              <List list={list} />
+            </li>
+          )}
         </div>
       </div>
     );
