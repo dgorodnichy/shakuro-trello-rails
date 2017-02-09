@@ -3,7 +3,8 @@ class ItemsController < ApplicationController
 
   # GET /items
   def index
-    @items = Item.all
+    list = List.find(params[:list_id])
+    @items = list.items
 
     render json: @items
   end

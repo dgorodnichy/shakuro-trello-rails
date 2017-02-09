@@ -6,7 +6,14 @@ export default class List extends Component {
     return (
       <div className='row'>
         <div className='list'>
-        { this.props.list.title }
+          <ul>
+            { this.props.list.title }
+            { this.props.items.map((item) =>
+              <li key={item.id}>
+                {item.title}
+              </li>
+            )}
+          </ul>
         </div>
       </div>
     );

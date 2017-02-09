@@ -20,7 +20,6 @@ class App extends Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    console.log(this.props);
     if (this.props.boards.length == 0 && nextProps.boards.length > 0) {
       this.props.listActions.getBoardLists(this.props.params.boardId || nextProps.boards[0].id)
       hashHistory.replace(`/board/${this.props.params.boardId || nextProps.boards[0].id}`);
@@ -30,13 +29,14 @@ class App extends Component {
   render() {
 
     const board = this.props.boards.find(this.isCurrentBoard.bind(this)) || {}
-    const lists = this.props.lists
 
     return (
       <div>
         App
         <BoardsTabs boards={this.props.boards} />
-        <Board board={board} lists={lists} getBoardLists={this.props.listActions.getBoardLists} />
+        <Board board={board}
+               lists={this.props.lists}
+               getBoardLists={this.props.listActions.getBoardLists} />
       </div>
     );
   }
@@ -45,14 +45,14 @@ class App extends Component {
 function mapStateToProps(state) {
   return {
     boards: state.boards,
-    lists: state.lists
+    lists: state.lists,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     boardActions: bindActionCreators(BoardActions, dispatch),
-    listActions: bindActionCreators(ListActions, dispatch)
+    listActions: bindActionCreators(ListActions, dispatch),
   };
 }
 
