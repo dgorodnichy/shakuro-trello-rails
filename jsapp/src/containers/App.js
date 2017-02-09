@@ -3,9 +3,11 @@ import { hashHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import * as BoardActions from '../actions/BoardActions.js';
 import * as ListActions from '../actions/ListActions.js';
+import * as ItemActions from '../actions/ItemActions.js';
 import { connect } from 'react-redux';
 import Board from '../components/Board.js';
 import BoardsTabs from '../components/BoardsTabs.js';
+import MainNabar from '../components/MainNavbar.js';
 
 class App extends Component {
 
@@ -22,6 +24,7 @@ class App extends Component {
   componentWillUpdate(nextProps, nextState) {
     if (this.props.boards.length == 0 && nextProps.boards.length > 0) {
       this.props.listActions.getBoardLists(this.props.params.boardId || nextProps.boards[0].id)
+      this.props.itemActions.getBoardItems(this.props.params.boardId || nextProps.boards[0].id)
       hashHistory.replace(`/board/${this.props.params.boardId || nextProps.boards[0].id}`);
     }
   }
@@ -32,11 +35,13 @@ class App extends Component {
 
     return (
       <div>
-        App
-        <BoardsTabs boards={this.props.boards} />
+        <MainNabar />
+        <BoardsTabs boards={this.props.boards} currentTab={this.props.params.boardId}/>
         <Board board={board}
                lists={this.props.lists}
-               getBoardLists={this.props.listActions.getBoardLists} />
+               items={this.props.items}
+               getBoardLists={this.props.listActions.getBoardLists}
+               getBoardItems={this.props.itemActions.getBoardItems} />
       </div>
     );
   }
@@ -46,6 +51,7 @@ function mapStateToProps(state) {
   return {
     boards: state.boards,
     lists: state.lists,
+    items: state.items,
   };
 }
 
@@ -53,6 +59,7 @@ function mapDispatchToProps(dispatch) {
   return {
     boardActions: bindActionCreators(BoardActions, dispatch),
     listActions: bindActionCreators(ListActions, dispatch),
+    itemActions: bindActionCreators(ItemActions, dispatch),
   };
 }
 

@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import { hashHistory } from 'react-router';
+import Nav from 'react-bootstrap/lib/Nav';
+import NavItem from 'react-bootstrap/lib/NavItem';
 
 export default class BoardsTabs extends Component {
 
+  handleSelect(selectedKey) {
+    hashHistory.push(`/board/${selectedKey}`);
+  }
+
   render() {
     return (
-      <div className='row'>
-        <div className='board'>
-          <ul>
-            {this.props.boards.map((board) =>
-              <li key={board.id}>
-                <Link to={`/board/${board.id}`}>{board.title}</Link>
-              </li>
-            )}
-          </ul>
-        </div>
-      </div>
+      <Nav bsStyle="pills" activeKey={this.props.currentTab} onSelect={this.handleSelect}>
+        { this.props.boards.map((board) =>
+          <NavItem eventKey={board.id.toString()} href={`/board/${board.id}`} key={board.id}>{board.title}</NavItem>
+        )}
+      </Nav>
     );
   }
 }

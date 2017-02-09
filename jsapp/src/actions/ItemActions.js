@@ -1,6 +1,6 @@
-export function getListItems(boardId, listId) {
+export function getBoardItems(boardId, listId) {
   return function(dispatch) {
-    fetch(`http://0.0.0.0:3000/boards/${boardId}/lists/${listId}/items`)
+    fetch(`http://0.0.0.0:3000/board_items/${boardId}`)
       .then( (response) => {
         return response.json()
       })

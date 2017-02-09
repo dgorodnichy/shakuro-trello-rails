@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import ListContainer from '../containers/ListContainer.js'
+import List from '../components/List.js'
 
 export default class Board extends Component {
 
@@ -12,14 +12,12 @@ export default class Board extends Component {
   render() {
     return (
       <div className='row'>
-        <div className='board'>
-        { this.props.board.title }
-          {this.props.lists.map((list) =>
-            <li key={list.id}>
-              <ListContainer list={list} board={this.props.board} />
-            </li>
-          )}
-        </div>
+        <h3>
+          { this.props.board.title }
+        </h3>
+        {this.props.lists.map((list) =>
+          <List list={list} board={this.props.board} items={this.props.items} key={list.id}/>
+        )}
       </div>
     );
   }
