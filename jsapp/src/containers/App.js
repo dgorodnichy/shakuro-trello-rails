@@ -12,7 +12,7 @@ import MainNabar from '../components/MainNavbar.js';
 class App extends Component {
 
   isCurrentBoard(element, index, array) {
-    if(element.id == this.props.params.boardId){
+    if (element.id == this.props.params.boardId) {
       return element;
     }
   }
@@ -39,7 +39,7 @@ class App extends Component {
         <BoardsTabs boards={this.props.boards} currentTab={this.props.params.boardId}/>
         <Board board={board}
                lists={this.props.lists}
-               items={this.props.items}
+               listItems={this.props.listItems}
                getBoardLists={this.props.listActions.getBoardLists}
                getBoardItems={this.props.itemActions.getBoardItems} />
       </div>
@@ -51,7 +51,7 @@ function mapStateToProps(state) {
   return {
     boards: state.boards,
     lists: state.lists,
-    items: state.items,
+    listItems: state.listItems,
   };
 }
 
