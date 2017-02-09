@@ -9,6 +9,12 @@ class ItemsController < ApplicationController
     render json: @items
   end
 
+  def board_items
+    board = Board.find(params[:board_id])
+    @items = Item.where(list_id: board.list_ids)
+    render json: @items
+  end
+
   # GET /items/1
   def show
     render json: @item
