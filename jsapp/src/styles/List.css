@@ -5,13 +5,37 @@
   vertical-align: top;
 }
 
+/* .list form { */
+/*   overflow: hidden; */
+/* } */
+
+.list .well {
+  padding: 5px;
+}
+
 .list .panel {
   margin-bottom: 5px;
 }
+
+.list .panel-heading {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .list .panel-body {
   padding: 5px;
 }
+
 .new-list {
   display: inline-block;
   width: 100px;
+}
+
+.new-list-actions {
+  margin-top: 5px;
+}
+
+.new-list-actions button {
+  display: block;
+  float: right;
 }

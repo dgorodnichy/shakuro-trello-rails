@@ -22,10 +22,11 @@ class ItemsController < ApplicationController
 
   # POST /items
   def create
-    @item = Item.new(item_params)
+    list = List.find(params[:list_id])
+    @item = list.items.new(item_params)
 
     if @item.save
-      render json: @item, status: :created, location: @item
+      render json: @item, status: :created #, location: @item
     else
       render json: @item.errors, status: :unprocessable_entity
     end

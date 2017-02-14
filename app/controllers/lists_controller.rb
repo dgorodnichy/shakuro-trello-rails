@@ -16,10 +16,11 @@ class ListsController < ApplicationController
 
   # POST /lists
   def create
-    @list = List.new(list_params)
+    board = Board.find(params[:board_id])
+    @list = board.lists.new(list_params)
 
     if @list.save
-      render json: @list, status: :created, location: @list
+      render json: @list, status: :created #, location: @list
     else
       render json: @list.errors, status: :unprocessable_entity
     end
