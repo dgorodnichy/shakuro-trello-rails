@@ -2,7 +2,11 @@ import React, { Component } from 'react'
 import Panel from 'react-bootstrap/lib/Panel';
 import styles from '../styles/List.css'
 import Button from 'react-bootstrap/lib/Button';
+import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 import FormControl from 'react-bootstrap/lib/FormControl';
+import DropdownButton from 'react-bootstrap/lib/DropdownButton';
+import MenuItem from 'react-bootstrap/lib/MenuItem';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
 export default class List extends Component {
 
@@ -20,12 +24,6 @@ export default class List extends Component {
     };
   }
 
-  // itemTitle(title) {
-  //   if (title.length <= 30) return title;
-
-  //   return `${title.substring(0, 30)}...`;
-  // }
-
   getItems(listId) {
     return this.props.listItems.filter((item) => listId == item.list_id);
   }
@@ -38,10 +36,6 @@ export default class List extends Component {
     this.setState({newItemDescription: event.target.value})
   }
 
-  showForm() {
-    this.setState({showForm: true})
-  }
-
   addItem() {
     this.props.saveItem(this.props.board.id, this.props.list.id);
     this.setState({
@@ -49,6 +43,18 @@ export default class List extends Component {
       newItemDescription: "",
       showForm: false,
     })
+  }
+
+  editItem() {
+    console.log('edit item');
+  }
+
+  removeItem() {
+    console.log('remove item');
+  }
+
+  moveToList(itemId,listId) {
+    this.props.changeItemList(itemId, listId)
   }
 
   hideForm() {
@@ -59,6 +65,10 @@ export default class List extends Component {
     })
   }
 
+  showForm() {
+    this.setState({showForm: true})
+  }
+
   render() {
     const list = this.props.list || {};
     const items = this.getItems(list.id);
@@ -67,28 +77,39 @@ export default class List extends Component {
       <div className='list'>
         <Panel header={list.title}>
           {items.map(item => (
-            <Panel collapsible
-              header={item.title}
-              key={item.id}>
-              {item.description}
-            </Panel>
+            <div className='list-item'>
+              <ButtonToolbar>
+                <DropdownButton bsStyle={'link'} title={<Glyphicon glyph="option-vertical" />} key={1} id={`dropdown-basic-${1}`}>
+                  <MenuItem eventKey="1" onClick={this.editItem}>Edit</MenuItem>
+                  <MenuItem eventKey="2" onClick={this.removeItem}>Delete</MenuItem>
+                  <MenuItem divider />
+                  <MenuItem header>Move to</MenuItem>
+                  { this.props.lists.filter((i) => i.id != this.props.list.id).map(list => (
+                      <MenuItem eventKey="1" onClick={this.moveToList.bind(this, item.id, list.id)}>{list.title}</MenuItem>
+                  )) }
+
+                </DropdownButton>
+              </ButtonToolbar>
+              <p>{item.title}</p>
+              <p>{item.description}</p>
+            </div>
           ))}
           <form className={`new-item-form-${list.id}`} method='POST'>
             <FormControl
               type='text'
-              placeholder='Add item...'
+              placeholder={ this.state.showForm ? 'Title' : 'Add item... ' }
               value={this.state.newItemTitle}
               name='item[title]'
               onChange={this.handleChangeTitle}
               onFocus={this.showForm}
             />
            { this.state.showForm ? (
-             <div className='new-item-actions'>
+             <div className='new-list-actions'>
                <FormControl
                  componentClass="textarea"
                  name='item[description]'
                  onChange={this.handleChangeDescription}
-                 placeholder="textarea"
+                 placeholder="Description"
                  value={this.state.newItemDescription}
                />
                <Button onClick={this.hideForm.bind(this)}>Cancel</Button>{" "}

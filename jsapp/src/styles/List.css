@@ -3,6 +3,7 @@
   margin: 10px 10px 10px;
   display: inline-block;
   vertical-align: top;
+  white-space: normal;
 }
 
 /* .list form { */
@@ -20,10 +21,29 @@
 .list .panel-heading {
   overflow: hidden;
   text-overflow: ellipsis;
+  background-color: #e0e0e0 !important;
 }
 
 .list .panel-body {
   padding: 5px;
+  background-color: #e0e0e0;
+}
+
+.list-item {
+  font-size: 9pt;
+  background-color: #fff;
+  position: relative;
+}
+
+.list-item .btn-toolbar {
+  color: blue;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+.list-item p {
+  margin: 5px 0;
 }
 
 .new-list {
@@ -39,3 +59,11 @@
   display: block;
   float: right;
 }
+.list .caret {
+  display: none !important;
+}
+
+.list .dropdown-toggle {
+  padding: 0px;
+}
+

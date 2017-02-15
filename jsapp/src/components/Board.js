@@ -53,7 +53,13 @@ export default class Board extends Component {
 
         {this.props.lists.map((list) =>
           <List board={this.props.board}
-            list={list} listItems={this.props.listItems} key={list.id} saveItem={this.props.saveItem}/>
+            list={list}
+            listItems={this.props.listItems}
+            key={list.id}
+            saveItem={this.props.saveItem}
+            lists={this.props.lists}
+            changeItemList={this.props.changeItemList} />
+
         )}
         <div className='list'>
           <Fade in={true}>

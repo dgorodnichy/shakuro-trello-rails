@@ -43,7 +43,8 @@ class App extends Component {
                getBoardLists={this.props.listActions.getBoardLists}
                getBoardItems={this.props.itemActions.getBoardItems}
                saveList={this.props.listActions.saveList}
-               saveItem={this.props.itemActions.saveItem} />
+               saveItem={this.props.itemActions.saveItem}
+               changeItemList={this.props.itemActions.changeItemList} />
       </div>
     );
   }
