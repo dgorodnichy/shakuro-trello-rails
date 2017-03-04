@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     end
   end
 
+  root to: 'ui#index'
 
   get 'board_items/:board_id', to: 'items#board_items'
   put 'items/:id', to: 'items#update'

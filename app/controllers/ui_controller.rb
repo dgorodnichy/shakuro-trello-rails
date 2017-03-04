@@ -11,10 +11,11 @@ class UiController < ApplicationController
               '<title>test</title>'\
           '</head>'\
           '<body>'\
-              'test'\
+              '<div id="root"> </div>'\
+              '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">'\
+              '<script type="text/javascript" src="bundle.js"></script>'\
           '</body>'\
       '</html>'.html_safe
   end
 
 end
-
